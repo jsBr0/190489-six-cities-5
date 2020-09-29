@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Yaroslav Oliinyk](https://up.htmlacademy.ru/react/5/user/190489).
-* Наставник: `Неизвестно`.
+* Наставник: [Николай Карастелев](https://htmlacademy.ru/profile/bini1988).
 
 ---
 
