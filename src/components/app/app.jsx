@@ -26,8 +26,11 @@ const App = (props) => {
         <Route exact path="/offer/:id">
           <Room
             offers={offers}
-            review={reviews} />
+            reviews={reviews} />
         </Route>
+        <React.Fragment>
+          <h1 style={{textAlign: `center`, marginTop: `50%`}}>Oops! Seems, this page not found</h1>
+        </React.Fragment>
       </Switch>
     </BrowserRouter>
   );

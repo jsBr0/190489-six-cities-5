@@ -60,11 +60,9 @@ PlaceCard.propTypes = {
   offer: PropTypes.shape({
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     photos: PropTypes.array.isRequired,
     isPremium: PropTypes.bool.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   onCardHover: PropTypes.func.isRequired,
 };
