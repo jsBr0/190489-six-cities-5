@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, BrowserRouter, Link} from "react-router-dom";
 
 import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
@@ -29,7 +29,8 @@ const App = (props) => {
             reviews={reviews} />
         </Route>
         <React.Fragment>
-          <h1 style={{textAlign: `center`, marginTop: `50%`}}>Oops! Seems, this page not found</h1>
+          <h1 style={{textAlign: `center`, marginTop: `35%`}}>Oops! Seems, this page not found</h1>
+          <Link to="/" style={{display: `block`, textAlign: `center`, marginTop: `5%`}}>Go to main page</Link>
         </React.Fragment>
       </Switch>
     </BrowserRouter>
