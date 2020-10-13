@@ -133,7 +133,7 @@ export default [
       {type: `Cabel TV`, isAvailable: true},
     ],
     photos: [
-      `https://picsum.photos/id/134/260/300`,
+      `https://picsum.photos/id/124/260/300`,
       `https://picsum.photos/id/134/260/300`,
       `https://picsum.photos/id/651/260/300`,
       `https://picsum.photos/id/4/260/300`,

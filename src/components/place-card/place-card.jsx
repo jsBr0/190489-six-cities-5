@@ -1,15 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import {OfferPropTypes} from "../../utils/prop-types";
+
 const PlaceCard = (props) => {
-  const {offer, onCardHover} = props;
+  const {offer = {}, onCardHover} = props;
 
   return (
     <article
       className="cities__place-card place-card"
       onMouseOver={(evt) => {
         evt.preventDefault();
-        onCardHover();
+        onCardHover(offer);
       }}
     >
       {offer.isPremium ? (
@@ -57,13 +59,7 @@ const PlaceCard = (props) => {
 };
 
 PlaceCard.propTypes = {
-  offer: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    photos: PropTypes.array.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-  }).isRequired,
+  offer: OfferPropTypes,
   onCardHover: PropTypes.func.isRequired,
 };
 

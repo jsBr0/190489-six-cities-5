@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import ReviewItem from "../review-item/review-item";
 
+import {OfferPropTypes, ReviewPropTypes} from "../../utils/prop-types";
+
 const ReviewsList = (props) => {
   const {reviews, offer} = props;
   const filteredReviews = reviews.filter((review) => review.forOfferId === offer.id
@@ -23,10 +25,8 @@ const ReviewsList = (props) => {
 };
 
 ReviewsList.propTypes = {
-  reviews: PropTypes.array.isRequired,
-  offer: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  }).isRequired
+  reviews: PropTypes.arrayOf(ReviewPropTypes).isRequired,
+  offer: OfferPropTypes,
 };
 
 export default ReviewsList;

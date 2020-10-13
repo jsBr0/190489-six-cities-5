@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 
 import PlacesList from "../places-list/places-list";
 
+import {OfferPropTypes} from "../../utils/prop-types";
+
 const Main = (props) => {
   const {offers} = props;
 
@@ -103,7 +105,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
 };
 
 export default Main;

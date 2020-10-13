@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 import ReviewsList from "../reviews-list/reviews-list";
 import ReviewsForm from "../reviews-form/reviews-form";
 
+import {OfferPropTypes, ReviewPropTypes} from "../../utils/prop-types";
+
 const Room = (props) => {
   const {offers, reviews} = props;
   const offerPathname = window.location.pathname.replace(`/offer/`, ``);
@@ -319,8 +321,8 @@ const Room = (props) => {
 };
 
 Room.propTypes = {
-  offers: PropTypes.array.isRequired,
-  reviews: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
+  reviews: PropTypes.arrayOf(ReviewPropTypes).isRequired,
 };
 
 export default Room;

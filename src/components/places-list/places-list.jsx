@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 
 import PlaceCard from "../place-card/place-card";
 
+import {OfferPropTypes} from "../../utils/prop-types";
+
 class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class PlacesList extends PureComponent {
 }
 
 PlacesList.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
 };
 
 export default PlacesList;
