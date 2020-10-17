@@ -191,7 +191,7 @@ export default [
       name: `Lev`,
       isSuper: false
     },
-    coordinates: [52.3909553943508, 4.85309666406198]
+    coordinates: [52.3929553943508, 4.90709666406198]
   },
 
   {
@@ -230,7 +230,7 @@ export default [
       name: `Yara`,
       isSuper: true
     },
-    coordinates: [52.369553943508, 4.85309666406198]
+    coordinates: [52.359553943508, 4.88309666406198]
   },
 ];
 

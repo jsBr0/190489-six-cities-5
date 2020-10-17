@@ -14,8 +14,6 @@ export default class Map extends React.PureComponent {
   componentDidMount() {
     const {offers} = this.props;
 
-    const offersCords = offers.map((offer) => offer.coordinates);
-
     const city = [52.38333, 4.9];
 
     const icon = leaflet.icon({
@@ -41,8 +39,8 @@ export default class Map extends React.PureComponent {
       )
       .addTo(map);
 
-    offersCords.forEach((offerCords) =>
-      leaflet.marker(offerCords, {icon}).addTo(map)
+    offers.forEach((offer) =>
+      leaflet.marker(offer.coordinates, {icon}).addTo(map)
     );
   }
 
