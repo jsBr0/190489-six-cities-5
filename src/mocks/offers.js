@@ -34,8 +34,10 @@ export default [
       avatar: `https://picsum.photos/id/237/74`,
       name: `Joel`,
       isSuper: true
-    }
+    },
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
+
   {
     id: 1,
     city: `Cologne`,
@@ -71,8 +73,10 @@ export default [
       avatar: `https://picsum.photos/id/27/74`,
       name: `Ellie`,
       isSuper: false
-    }
+    },
+    coordinates: [52.369553943508, 4.85309666406198]
   },
+
   {
     id: 2,
     city: `Brussels`,
@@ -108,8 +112,10 @@ export default [
       avatar: `https://picsum.photos/id/21/74`,
       name: `Dina`,
       isSuper: true
-    }
+    },
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
+
   {
     id: 3,
     city: `Amsterdam`,
@@ -145,8 +151,10 @@ export default [
       avatar: `https://picsum.photos/id/90/74`,
       name: `Jesse`,
       isSuper: false
-    }
+    },
+    coordinates: [52.3809553943508, 4.939309666406198]
   },
+
   {
     id: 4,
     city: `Hamburg`,
@@ -182,8 +190,10 @@ export default [
       avatar: `https://picsum.photos/id/137/74`,
       name: `Lev`,
       isSuper: false
-    }
+    },
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
+
   {
     id: 5,
     city: `Dusseldorf`,
@@ -219,7 +229,8 @@ export default [
       avatar: `https://picsum.photos/id/253/74`,
       name: `Yara`,
       isSuper: true
-    }
+    },
+    coordinates: [52.369553943508, 4.85309666406198]
   },
 ];
 
