@@ -5,7 +5,7 @@ import PlaceCard from "../place-card/place-card";
 
 import {OfferPropTypes} from "../../utils/prop-types";
 
-class PlacesList extends PureComponent {
+export default class PlacesList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -38,5 +38,3 @@ class PlacesList extends PureComponent {
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
 };
-
-export default PlacesList;

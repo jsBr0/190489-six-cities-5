@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
-class ReviewsForm extends PureComponent {
+export default class ReviewsForm extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -95,7 +95,5 @@ class ReviewsForm extends PureComponent {
 }
 
 ReviewsForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 };
-
-export default ReviewsForm;
