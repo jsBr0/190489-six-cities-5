@@ -67,7 +67,7 @@ export default [
       `https://picsum.photos/id/48/260/300`,
       `https://picsum.photos/id/44/260/300`
     ],
-    isPremium: true,
+    isPremium: false,
     isFavorite: false,
     host: {
       avatar: `https://picsum.photos/id/27/74`,
