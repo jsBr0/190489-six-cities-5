@@ -7,12 +7,14 @@ import ReviewsForm from "../reviews-form/reviews-form";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
 
-import {OfferPropTypes, ReviewPropTypes} from "../../utils/prop-types";
+import offers from "../../mocks/offers";
+import reviews from "../../mocks/reviews";
 
-const Room = (props) => {
-  const {offers, reviews} = props;
-  const offerPathname = window.location.pathname.replace(`/offer/`, ``);
-  const offer = offers[offerPathname];
+const OfferPage = (props) => {
+  const {match} = props;
+
+  const id = match.params.id;
+  const offer = offers[id];
   const offersNear = offers.filter((item) => item.id !== offer.id).slice(0, 3);
 
   return (
@@ -153,28 +155,29 @@ const Room = (props) => {
                   <span className="property__user-name">{offer.host.name}</span>
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    {offer.description}
-                  </p>
-                  <p className="property__text">
-                    {offer.description}
-                  </p>
+                  <p className="property__text">{offer.description}</p>
+                  <p className="property__text">{offer.description}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews} offer={offer}/>
+                <ReviewsList reviews={reviews} offer={offer} />
                 <ReviewsForm />
               </section>
             </div>
           </div>
-          <Map offers={offersNear} className={`property__map`}/>
+          <Map offers={offersNear} className={`property__map`} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <PlacesList offers={offersNear} cardClassName={`near-places__card`} imageClassName={`near-places__image-wrapper`} listClassName={`near-places__list`}/>
+            <PlacesList
+              offers={offersNear}
+              cardClassName={`near-places__card`}
+              imageClassName={`near-places__image-wrapper`}
+              listClassName={`near-places__list`}
+            />
           </section>
         </div>
       </main>
@@ -182,9 +185,8 @@ const Room = (props) => {
   );
 };
 
-Room.propTypes = {
-  offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
-  reviews: PropTypes.arrayOf(ReviewPropTypes).isRequired,
+OfferPage.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 
-export default Room;
+export default OfferPage;

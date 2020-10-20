@@ -5,12 +5,12 @@ import {Switch, Route, BrowserRouter, Link} from "react-router-dom";
 import Main from "../main/main";
 import SignIn from "../sign-in/sign-in";
 import Favorites from "../favorites/favorites";
-import Room from "../room/room";
+import OfferPage from "../offer-page/offer-page";
 
-import {OfferPropTypes, ReviewPropTypes} from "../../utils/prop-types";
+import {OfferPropTypes} from "../../utils/prop-types";
 
 const App = (props) => {
-  const {offers, reviews} = props;
+  const {offers} = props;
 
   return (
     <BrowserRouter>
@@ -24,9 +24,7 @@ const App = (props) => {
         <Route exact path="/favorites">
           <Favorites />
         </Route>
-        <Route exact path="/offer/:id">
-          <Room offers={offers} reviews={reviews} />
-        </Route>
+        <Route exact path="/offer/:id" component={OfferPage} />
         <Route path="*">
           <h1 style={{textAlign: `center`, marginTop: `35%`}}>
             Oops! Seems, this page not found
@@ -45,7 +43,6 @@ const App = (props) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
-  reviews: PropTypes.arrayOf(ReviewPropTypes).isRequired,
 };
 
 export default App;
