@@ -67,7 +67,7 @@ export default [
       `https://picsum.photos/id/48/260/300`,
       `https://picsum.photos/id/44/260/300`
     ],
-    isPremium: true,
+    isPremium: false,
     isFavorite: false,
     host: {
       avatar: `https://picsum.photos/id/27/74`,
@@ -191,7 +191,7 @@ export default [
       name: `Lev`,
       isSuper: false
     },
-    coordinates: [52.3909553943508, 4.85309666406198]
+    coordinates: [52.3929553943508, 4.90709666406198]
   },
 
   {
@@ -230,7 +230,7 @@ export default [
       name: `Yara`,
       isSuper: true
     },
-    coordinates: [52.369553943508, 4.85309666406198]
+    coordinates: [52.359553943508, 4.88309666406198]
   },
 ];
 

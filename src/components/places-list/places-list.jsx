@@ -15,10 +15,10 @@ export default class PlacesList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, cardClassName, imageClassName, listClassName} = this.props;
 
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={`${listClassName} places__list`}>
         {offers.map((offer) => (
           <PlaceCard
             key={offer.id}
@@ -28,6 +28,8 @@ export default class PlacesList extends PureComponent {
                 active: offer
               });
             }}
+            cardClassName={cardClassName}
+            imageClassName={imageClassName}
           />
         ))}
       </div>
@@ -37,4 +39,7 @@ export default class PlacesList extends PureComponent {
 
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
+  cardClassName: PropTypes.string.isRequired,
+  imageClassName: PropTypes.string.isRequired,
+  listClassName: PropTypes.string.isRequired,
 };

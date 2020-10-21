@@ -19,7 +19,7 @@ export const OfferPropTypes = PropTypes.shape({
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
   }),
-  coordinates: PropTypes.array.isRequired
+  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
 }).isRequired;
 
 export const ReviewPropTypes = PropTypes.shape({

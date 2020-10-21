@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import {OfferPropTypes} from "../../utils/prop-types";
 
 const PlaceCard = (props) => {
-  const {offer = {}, onCardHover} = props;
+  const {offer = {}, cardClassName, imageClassName, onCardHover} = props;
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`${cardClassName} place-card`}
       onMouseOver={(evt) => {
         evt.preventDefault();
         onCardHover(offer);
@@ -19,7 +19,7 @@ const PlaceCard = (props) => {
           <span>Premium</span>
         </div>
       ) : null}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imageClassName} place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
@@ -60,6 +60,8 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   offer: OfferPropTypes,
+  cardClassName: PropTypes.string.isRequired,
+  imageClassName: PropTypes.string.isRequired,
   onCardHover: PropTypes.func.isRequired,
 };
 
