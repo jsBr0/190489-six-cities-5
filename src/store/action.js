@@ -10,10 +10,9 @@ const ActionCreator = {
       payload: city
     });
   },
-  getOffersList: (city) => {
+  getOffersList: () => {
     return ({
       type: ActionType.GET_OFFERS_LIST,
-      payload: city
     });
   }
 };
