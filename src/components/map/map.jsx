@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
 import {OfferPropTypes} from "../../utils/prop-types";
 
@@ -15,7 +14,7 @@ class Map extends React.PureComponent {
   _createMap() {
     const {offers} = this.props;
 
-    const defaultCoords = [52.38333, 4.9];
+    const defaults = [52.38333, 4.9];
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -24,12 +23,12 @@ class Map extends React.PureComponent {
 
     const zoom = 12;
     this.map = leaflet.map(`map`, {
-      center: defaultCoords,
+      center: defaults,
       zoom,
       zoomControl: false,
       marker: true,
     });
-    this.map.setView(defaultCoords, zoom);
+    this.map.setView(defaults, zoom);
 
     leaflet
       .tileLayer(
@@ -63,12 +62,7 @@ class Map extends React.PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
-  className: PropTypes.string,
+  className: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-});
-
-export {Map};
-export default connect(mapStateToProps)(Map);
+export default Map;

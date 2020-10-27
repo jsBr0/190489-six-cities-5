@@ -2,11 +2,11 @@ import {extend} from "../utils/common";
 import {ActionType} from "./action";
 import offers from "../mocks/offers";
 
-const DEFAULT_CITY = `Paris`;
+const DEFAULT_CITY = offers[0].city;
 
 const initialState = {
   activeCity: DEFAULT_CITY,
-  offers: offers.filter((offer) => offer.city === DEFAULT_CITY)
+  offers
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,10 +14,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return extend(state, {
         activeCity: action.payload
-      });
-    case ActionType.GET_OFFERS_LIST:
-      return extend(state, {
-        offers: offers.filter((offer) => offer.city === state.activeCity)
       });
     default:
       return state;

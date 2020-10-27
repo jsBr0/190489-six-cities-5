@@ -1,6 +1,6 @@
 const ActionType = {
   CHANGE_CITY: `CHANGE_CITY`,
-  GET_OFFERS_LIST: `GET_OFFERS_LIST`
+  FILTER_OFFERS_LIST: `GET_OFFERS_LIST`
 };
 
 const ActionCreator = {
@@ -8,11 +8,6 @@ const ActionCreator = {
     return ({
       type: ActionType.CHANGE_CITY,
       payload: city
-    });
-  },
-  getOffersList: () => {
-    return ({
-      type: ActionType.GET_OFFERS_LIST,
     });
   }
 };
