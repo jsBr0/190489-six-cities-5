@@ -6,15 +6,15 @@ import {OfferPropTypes} from "../../utils/prop-types";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-export default class Map extends React.PureComponent {
+class Map extends React.PureComponent {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
+  _createMap() {
     const {offers} = this.props;
 
-    const city = [52.38333, 4.9];
+    const defaults = [52.38333, 4.9];
 
     const icon = leaflet.icon({
       iconUrl: `img/pin.svg`,
@@ -22,13 +22,13 @@ export default class Map extends React.PureComponent {
     });
 
     const zoom = 12;
-    const map = leaflet.map(`map`, {
-      center: city,
+    this.map = leaflet.map(`map`, {
+      center: defaults,
       zoom,
       zoomControl: false,
       marker: true,
     });
-    map.setView(city, zoom);
+    this.map.setView(defaults, zoom);
 
     leaflet
       .tileLayer(
@@ -37,11 +37,20 @@ export default class Map extends React.PureComponent {
             attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`,
           }
       )
-      .addTo(map);
+      .addTo(this.map);
 
     offers.forEach((offer) =>
-      leaflet.marker(offer.coordinates, {icon}).addTo(map)
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.map)
     );
+  }
+
+  componentDidMount() {
+    this._createMap();
+  }
+
+  componentDidUpdate() {
+    this.map.remove();
+    this._createMap();
   }
 
   render() {
@@ -53,5 +62,7 @@ export default class Map extends React.PureComponent {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
-  className: PropTypes.string
+  className: PropTypes.string.isRequired,
 };
+
+export default Map;
