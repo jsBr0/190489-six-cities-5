@@ -1,6 +1,5 @@
 const ActionType = {
-  CHANGE_CITY: `CHANGE_CITY`,
-  FILTER_OFFERS_LIST: `GET_OFFERS_LIST`
+  CHANGE_CITY: `CHANGE_CITY`
 };
 
 const ActionCreator = {
