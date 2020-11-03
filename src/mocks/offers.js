@@ -232,5 +232,43 @@ export default [
     },
     coordinates: [52.359553943508, 4.88309666406198]
   },
+  {
+    id: 6,
+    city: `Paris`,
+    title: `So much luxury apartment you've ever lived before in Paris`,
+    description: `The problem with modern man isn’t that he’s evil. Quite the opposite. In general, for practical reasons, he prefers to be nice. It’s just he hates being bored. Boredom terrifies him… Nothing has changes since Pascal’s days: man is still trying to run away from his fears by distracting himself. It’s just now that the distractions have become so ubiquitous that they’ve taken God’s place.`,
+    type: `Apartment`,
+    rating: 4.99,
+    bedroomsNum: 2,
+    guestsMaxNum: 4,
+    price: 99,
+    facilities: [
+      {type: `Wi-Fi`, isAvailable: true},
+      {type: `Heating`, isAvailable: false},
+      {type: `Kitchen`, isAvailable: true},
+      {type: `Fridge`, isAvailable: true},
+      {type: `Washing machine`, isAvailable: true},
+      {type: `Coffee machine`, isAvailable: false},
+      {type: `Dishwasher`, isAvailable: false},
+      {type: `Towels`, isAvailable: true},
+      {type: `Baby seat`, isAvailable: false},
+      {type: `Cabel TV`, isAvailable: true},
+    ],
+    photos: [
+      `https://picsum.photos/id/11/260/300`,
+      `https://picsum.photos/id/17/260/300`,
+      `https://picsum.photos/id/55/260/300`,
+      `https://picsum.photos/id/42/260/300`,
+      `https://picsum.photos/id/59/260/300`
+    ],
+    isPremium: false,
+    isFavorite: false,
+    host: {
+      avatar: `https://picsum.photos/id/99/74`,
+      name: `Frederic Beigbeder`,
+      isSuper: true
+    },
+    coordinates: [52.3609553943508, 4.82309666406198]
+  }
 ];
 
