@@ -12,12 +12,17 @@ class Map extends React.PureComponent {
   }
 
   _createMap() {
-    const {offers} = this.props;
+    const {offers, hoveredOfferID} = this.props;
 
     const defaults = [52.38333, 4.9];
 
-    const icon = leaflet.icon({
+    const inactivePin = leaflet.icon({
       iconUrl: `img/pin.svg`,
+      iconSize: [30, 30],
+    });
+
+    const activePin = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
       iconSize: [30, 30],
     });
 
@@ -39,9 +44,10 @@ class Map extends React.PureComponent {
       )
       .addTo(this.map);
 
-    offers.forEach((offer) =>
-      leaflet.marker(offer.coordinates, {icon}).addTo(this.map)
-    );
+    offers.forEach((offer) => {
+      const icon = offer.id === hoveredOfferID ? activePin : inactivePin;
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.map);
+    });
   }
 
   componentDidMount() {
@@ -63,6 +69,7 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
   className: PropTypes.string.isRequired,
+  hoveredOfferID: PropTypes.number,
 };
 
 export default Map;

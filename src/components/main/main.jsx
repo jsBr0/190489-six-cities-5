@@ -14,6 +14,7 @@ import {
   getOffersCitiesList,
   getOffersBySortType,
   getActiveSortType,
+  getHoveredOfferID,
 } from "../../store/selectors";
 
 import {OfferPropTypes} from "../../utils/prop-types";
@@ -26,6 +27,8 @@ const Main = (props) => {
     offers,
     sortOffersBy,
     activeSortType,
+    setHoveredOfferID,
+    hoveredOfferID,
   } = props;
 
   return (
@@ -90,10 +93,11 @@ const Main = (props) => {
                 cardClassName={`cities__place-card`}
                 imageClassName={`cities__image-wrapper`}
                 listClassName={`cities__places-list tabs__content`}
+                setHoveredOfferID={setHoveredOfferID}
               />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} className={`cities__map`} />
+              <Map offers={offers} className={`cities__map`} hoveredOfferID={hoveredOfferID}/>
             </div>
           </div>
         </div>
@@ -109,6 +113,8 @@ Main.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
   sortOffersBy: PropTypes.func.isRequired,
   activeSortType: PropTypes.string.isRequired,
+  setHoveredOfferID: PropTypes.func.isRequired,
+  hoveredOfferID: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
@@ -116,6 +122,7 @@ const mapStateToProps = (state) => ({
   activeCity: getActiveCity(state),
   offers: getOffersBySortType(state),
   activeSortType: getActiveSortType(state),
+  hoveredOfferID: getHoveredOfferID(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -125,6 +132,9 @@ const mapDispatchToProps = (dispatch) => ({
   sortOffersBy(type) {
     dispatch(ActionCreator.sortOffersBy(type));
   },
+  setHoveredOfferID(id) {
+    dispatch(ActionCreator.setHoveredOfferID(id));
+  }
 });
 
 export {Main};

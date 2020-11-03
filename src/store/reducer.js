@@ -9,6 +9,7 @@ const DEFAULT_SORT_TYPE = SortType.POPULAR;
 const initialState = {
   activeCity: DEFAULT_CITY,
   activeSortType: DEFAULT_SORT_TYPE,
+  hoveredOfferID: null,
   offers,
 };
 
@@ -21,6 +22,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.SELECT_SORT_TYPE:
       return extend(state, {
         activeSortType: action.payload,
+      });
+    case ActionType.SET_HOVERED_OFFER_ID:
+      return extend(state, {
+        hoveredOfferID: action.payload,
       });
     default:
       return state;

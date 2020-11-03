@@ -34,10 +34,13 @@ const getOffersBySortType = (state) => {
   }
 };
 
+const getHoveredOfferID = (state) => state.hoveredOfferID;
+
 export {
   getActiveCity,
   getActiveCityOffers,
   getOffersCitiesList,
   getActiveSortType,
   getOffersBySortType,
+  getHoveredOfferID,
 };
