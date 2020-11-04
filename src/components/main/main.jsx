@@ -82,7 +82,7 @@ const Main = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
                 {offers.length}&nbsp;
-                {offers.length > 1 ? `places` : `place`} to stay in {activeCity}
+                {offers.length > 1 ? `places` : `place`} to stay in {activeCity.name}
               </b>
               <Sorting
                 sortOffersBy={sortOffersBy}
@@ -97,7 +97,7 @@ const Main = (props) => {
               />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} className={`cities__map`} hoveredOfferID={hoveredOfferID}/>
+              <Map offers={offers} className={`cities__map`} hoveredOfferID={hoveredOfferID} activeCity={activeCity}/>
             </div>
           </div>
         </div>
@@ -107,8 +107,8 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  cities: PropTypes.array.isRequired,
-  activeCity: PropTypes.string.isRequired,
+  cities: PropTypes.object.isRequired,
+  activeCity: PropTypes.object.isRequired,
   changeCity: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
   sortOffersBy: PropTypes.func.isRequired,

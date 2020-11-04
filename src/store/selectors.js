@@ -4,14 +4,17 @@ const getActiveCity = (state) => state.activeCity;
 
 const getActiveCityOffers = (state) => {
   const {activeCity, offers} = state;
-  return offers.filter((offer) => offer.city === activeCity);
+  return offers.filter((offer) => offer.city.name === activeCity.name);
 };
 
 const getOffersCitiesList = (state) => {
   const {offers} = state;
-  let cities = new Set();
-  offers.forEach((offer) => cities.add(offer.city));
-  return Array.from(cities);
+  const cities = {};
+  offers.forEach((offer) => {
+    cities[offer.city.name] = offer.city;
+  });
+
+  return cities;
 };
 
 const getActiveSortType = (state) => state.activeSortType;

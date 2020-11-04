@@ -17,28 +17,20 @@ class Map extends React.PureComponent {
     const ACTIVE_PIN_URL = `img/pin-active.svg`;
     const INACTIVE_PIN_URL = `img/pin.svg`;
 
-    const defaults = [52.38333, 4.9];
-
-    const inactivePin = leaflet.icon({
+    this.inactivePin = leaflet.icon({
       iconUrl: INACTIVE_PIN_URL,
       iconSize: [30, 30],
     });
 
-    const activePin = leaflet.icon({
+    this.activePin = leaflet.icon({
       iconUrl: ACTIVE_PIN_URL,
       iconSize: [30, 30],
     });
 
-    const zoom = 12;
-
     this.map = leaflet.map(`map`, {
-      center: defaults,
-      zoom,
       zoomControl: false,
       marker: true,
     });
-
-    this.map.setView(defaults, zoom);
 
     leaflet
       .tileLayer(
@@ -52,27 +44,39 @@ class Map extends React.PureComponent {
     this.markersLayer = leaflet.layerGroup().addTo(this.map);
 
     offers.forEach((offer) => {
-      const icon = offer.id === hoveredOfferID ? activePin : inactivePin;
+      const icon =
+        offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
       leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
     });
   }
 
-  _renderPin() {
+  _renderPins() {
     const {offers, hoveredOfferID} = this.props;
     this.markersLayer.clearLayers();
 
     offers.forEach((offer) => {
-      const icon = offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
+      const icon =
+        offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
       leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
     });
   }
 
-  componentDidMount() {
-    this._createMap();
+  _positionMap() {
+    const {latitude, longitude, zoom} = this.props.activeCity.location;
+    this.map.setView([latitude, longitude], zoom);
   }
 
-  componentDidUpdate() {
-    this._renderPin();
+  componentDidMount() {
+    this._createMap();
+    this._positionMap();
+  }
+
+  componentDidUpdate(prevProps) {
+    this._renderPins();
+
+    if (this.props.activeCity.name !== prevProps.activeCity.name) {
+      this._positionMap();
+    }
   }
 
   render() {
@@ -86,6 +90,7 @@ Map.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
   className: PropTypes.string.isRequired,
   hoveredOfferID: PropTypes.number,
+  activeCity: PropTypes.object.isRequired,
 };
 
 export default Map;
