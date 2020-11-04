@@ -9,22 +9,17 @@ export default class Sorting extends React.PureComponent {
     super(props);
 
     this.state = {
-      activeClass: false,
+      isActiveClass: false,
     };
 
     this._handleToggleActiveClass = this._handleToggleActiveClass.bind(this);
-    this._handleListOpen = this._handleListOpen.bind(this);
     this._handleSelectSortType = this._handleSelectSortType.bind(this);
   }
 
   _handleToggleActiveClass() {
     this.setState({
-      activeClass: !this.state.activeClass,
+      isActiveClass: !this.state.isActiveClass,
     });
-  }
-
-  _handleListOpen() {
-    this._handleToggleActiveClass();
   }
 
   _handleSelectSortType(type) {
@@ -44,7 +39,7 @@ export default class Sorting extends React.PureComponent {
         <span
           className="places__sorting-type"
           tabIndex="0"
-          onClick={this._handleListOpen}
+          onClick={this._handleToggleActiveClass}
         >
           {activeSortType}
           <svg className="places__sorting-arrow" width="7" height="4">
@@ -53,7 +48,7 @@ export default class Sorting extends React.PureComponent {
         </span>
         <ul
           className={`places__options places__options--custom ${
-            this.state.activeClass && `places__options--opened`
+            this.state.isActiveClass && `places__options--opened`
           }`}
         >
           {sortTypes.map((type, index) => (

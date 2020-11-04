@@ -14,25 +14,30 @@ class Map extends React.PureComponent {
   _createMap() {
     const {offers, hoveredOfferID} = this.props;
 
+    const ACTIVE_PIN_URL = `img/pin-active.svg`;
+    const INACTIVE_PIN_URL = `img/pin.svg`;
+
     const defaults = [52.38333, 4.9];
 
     const inactivePin = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+      iconUrl: INACTIVE_PIN_URL,
       iconSize: [30, 30],
     });
 
     const activePin = leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
+      iconUrl: ACTIVE_PIN_URL,
       iconSize: [30, 30],
     });
 
     const zoom = 12;
+
     this.map = leaflet.map(`map`, {
       center: defaults,
       zoom,
       zoomControl: false,
       marker: true,
     });
+
     this.map.setView(defaults, zoom);
 
     leaflet
@@ -44,9 +49,21 @@ class Map extends React.PureComponent {
       )
       .addTo(this.map);
 
+    this.markersLayer = leaflet.layerGroup().addTo(this.map);
+
     offers.forEach((offer) => {
       const icon = offer.id === hoveredOfferID ? activePin : inactivePin;
-      leaflet.marker(offer.coordinates, {icon}).addTo(this.map);
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
+    });
+  }
+
+  _renderPin() {
+    const {offers, hoveredOfferID} = this.props;
+    this.markersLayer.clearLayers();
+
+    offers.forEach((offer) => {
+      const icon = offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
     });
   }
 
@@ -55,8 +72,7 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    this.map.remove();
-    this._createMap();
+    this._renderPin();
   }
 
   render() {
