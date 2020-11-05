@@ -5,15 +5,31 @@ import {connect} from "react-redux";
 
 import PlacesList from "../places-list/places-list";
 import CitiesList from "../cities-list/cities-list";
+import Sorting from "../sorting/sorting";
 import Map from "../map/map";
 
 import {ActionCreator} from "../../store/action";
-import {getActiveCity, getActiveCityOffers, getOffersCitiesList} from "../../store/selectors";
+import {
+  getActiveCity,
+  getOffersCitiesList,
+  getOffersBySortType,
+  getActiveSortType,
+  getHoveredOfferID,
+} from "../../store/selectors";
 
 import {OfferPropTypes} from "../../utils/prop-types";
 
 const Main = (props) => {
-  const {cities, activeCity, changeCity, offers} = props;
+  const {
+    cities,
+    activeCity,
+    changeCity,
+    offers,
+    sortOffersBy,
+    activeSortType,
+    setHoveredOfferID,
+    hoveredOfferID,
+  } = props;
 
   return (
     <div className="page page--gray page--main">
@@ -66,43 +82,22 @@ const Main = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
                 {offers.length}&nbsp;
-                {offers.length > 1 ? `places` : `place`} to stay in {activeCity}
+                {offers.length > 1 ? `places` : `place`} to stay in {activeCity.name}
               </b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li
-                    className="places__option places__option--active"
-                    tabIndex="0"
-                  >
-                    Popular
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex="0">
-                    Top rated first
-                  </li>
-                </ul>
-              </form>
+              <Sorting
+                sortOffersBy={sortOffersBy}
+                activeSortType={activeSortType}
+              />
               <PlacesList
                 offers={offers}
                 cardClassName={`cities__place-card`}
                 imageClassName={`cities__image-wrapper`}
                 listClassName={`cities__places-list tabs__content`}
+                setHoveredOfferID={setHoveredOfferID}
               />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} className={`cities__map`} />
+              <Map offers={offers} className={`cities__map`} hoveredOfferID={hoveredOfferID} activeCity={activeCity}/>
             </div>
           </div>
         </div>
@@ -112,21 +107,33 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  cities: PropTypes.array.isRequired,
-  activeCity: PropTypes.string.isRequired,
+  cities: PropTypes.object.isRequired,
+  activeCity: PropTypes.object.isRequired,
   changeCity: PropTypes.func.isRequired,
-  offers: PropTypes.arrayOf(OfferPropTypes).isRequired
+  offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
+  sortOffersBy: PropTypes.func.isRequired,
+  activeSortType: PropTypes.string.isRequired,
+  setHoveredOfferID: PropTypes.func.isRequired,
+  hoveredOfferID: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
   cities: getOffersCitiesList(state),
   activeCity: getActiveCity(state),
-  offers: getActiveCityOffers(state)
+  offers: getOffersBySortType(state),
+  activeSortType: getActiveSortType(state),
+  hoveredOfferID: getHoveredOfferID(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(city) {
     dispatch(ActionCreator.changeCity(city));
+  },
+  sortOffersBy(type) {
+    dispatch(ActionCreator.sortOffersBy(type));
+  },
+  setHoveredOfferID(id) {
+    dispatch(ActionCreator.setHoveredOfferID(id));
   }
 });
 

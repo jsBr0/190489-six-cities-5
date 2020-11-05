@@ -4,14 +4,18 @@ import PropTypes from "prop-types";
 import {OfferPropTypes} from "../../utils/prop-types";
 
 const PlaceCard = (props) => {
-  const {offer = {}, cardClassName, imageClassName, onCardHover} = props;
+  const {offer = {}, cardClassName, imageClassName, setHoveredOfferID} = props;
 
   return (
     <article
       className={`${cardClassName} place-card`}
       onMouseOver={(evt) => {
         evt.preventDefault();
-        onCardHover(offer);
+        setHoveredOfferID(offer.id);
+      }}
+      onMouseOut={(evt) => {
+        evt.preventDefault();
+        setHoveredOfferID(null);
       }}
     >
       {offer.isPremium ? (
@@ -62,7 +66,7 @@ PlaceCard.propTypes = {
   offer: OfferPropTypes,
   cardClassName: PropTypes.string.isRequired,
   imageClassName: PropTypes.string.isRequired,
-  onCardHover: PropTypes.func.isRequired,
+  setHoveredOfferID: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

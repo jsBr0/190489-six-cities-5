@@ -15,7 +15,7 @@ export default class PlacesList extends PureComponent {
   }
 
   render() {
-    const {offers, cardClassName, imageClassName, listClassName} = this.props;
+    const {offers, cardClassName, imageClassName, listClassName, setHoveredOfferID} = this.props;
 
     return (
       <div className={`${listClassName} places__list`}>
@@ -23,11 +23,7 @@ export default class PlacesList extends PureComponent {
           <PlaceCard
             key={offer.id}
             offer={offer}
-            onCardHover={() => {
-              this.setState({
-                active: offer
-              });
-            }}
+            setHoveredOfferID={setHoveredOfferID}
             cardClassName={cardClassName}
             imageClassName={imageClassName}
           />
@@ -42,4 +38,5 @@ PlacesList.propTypes = {
   cardClassName: PropTypes.string.isRequired,
   imageClassName: PropTypes.string.isRequired,
   listClassName: PropTypes.string.isRequired,
+  setHoveredOfferID: PropTypes.func.isRequired,
 };

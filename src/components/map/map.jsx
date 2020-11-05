@@ -12,23 +12,25 @@ class Map extends React.PureComponent {
   }
 
   _createMap() {
-    const {offers} = this.props;
+    const {offers, hoveredOfferID} = this.props;
 
-    const defaults = [52.38333, 4.9];
+    const ACTIVE_PIN_URL = `img/pin-active.svg`;
+    const INACTIVE_PIN_URL = `img/pin.svg`;
 
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
+    this.inactivePin = leaflet.icon({
+      iconUrl: INACTIVE_PIN_URL,
       iconSize: [30, 30],
     });
 
-    const zoom = 12;
+    this.activePin = leaflet.icon({
+      iconUrl: ACTIVE_PIN_URL,
+      iconSize: [30, 30],
+    });
+
     this.map = leaflet.map(`map`, {
-      center: defaults,
-      zoom,
       zoomControl: false,
       marker: true,
     });
-    this.map.setView(defaults, zoom);
 
     leaflet
       .tileLayer(
@@ -39,18 +41,42 @@ class Map extends React.PureComponent {
       )
       .addTo(this.map);
 
-    offers.forEach((offer) =>
-      leaflet.marker(offer.coordinates, {icon}).addTo(this.map)
-    );
+    this.markersLayer = leaflet.layerGroup().addTo(this.map);
+
+    offers.forEach((offer) => {
+      const icon =
+        offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
+    });
+  }
+
+  _renderPins() {
+    const {offers, hoveredOfferID} = this.props;
+    this.markersLayer.clearLayers();
+
+    offers.forEach((offer) => {
+      const icon =
+        offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
+      leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
+    });
+  }
+
+  _positionMap() {
+    const {latitude, longitude, zoom} = this.props.activeCity.location;
+    this.map.setView([latitude, longitude], zoom);
   }
 
   componentDidMount() {
     this._createMap();
+    this._positionMap();
   }
 
-  componentDidUpdate() {
-    this.map.remove();
-    this._createMap();
+  componentDidUpdate(prevProps) {
+    this._renderPins();
+
+    if (this.props.activeCity.name !== prevProps.activeCity.name) {
+      this._positionMap();
+    }
   }
 
   render() {
@@ -63,6 +89,8 @@ class Map extends React.PureComponent {
 Map.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
   className: PropTypes.string.isRequired,
+  hoveredOfferID: PropTypes.number,
+  activeCity: PropTypes.object.isRequired,
 };
 
 export default Map;

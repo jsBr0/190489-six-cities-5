@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-export const OfferPropTypes = PropTypes.shape({
+const OfferPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  city: PropTypes.string.isRequired,
+  city: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -19,10 +19,10 @@ export const OfferPropTypes = PropTypes.shape({
     name: PropTypes.string.isRequired,
     isSuper: PropTypes.bool.isRequired,
   }),
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
 }).isRequired;
 
-export const ReviewPropTypes = PropTypes.shape({
+const ReviewPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
   forOfferId: PropTypes.number.isRequired,
   avatar: PropTypes.string.isRequired,
@@ -31,3 +31,16 @@ export const ReviewPropTypes = PropTypes.shape({
   date: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
 }).isRequired;
+
+const CitiesPropTypes = PropTypes.shape({
+  cities: PropTypes.array.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  changeCity: PropTypes.func.isRequired,
+}).isRequired;
+
+const SortingPropTypes = PropTypes.shape({
+  sortOffersBy: PropTypes.func.isRequired,
+  activeSortType: PropTypes.string.isRequired,
+}).isRequired;
+
+export {OfferPropTypes, ReviewPropTypes, CitiesPropTypes, SortingPropTypes};
