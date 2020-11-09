@@ -12,8 +12,6 @@ class Map extends React.PureComponent {
   }
 
   _createMap() {
-    const {offers, hoveredOfferID} = this.props;
-
     const ACTIVE_PIN_URL = `img/pin-active.svg`;
     const INACTIVE_PIN_URL = `img/pin.svg`;
 
@@ -43,11 +41,7 @@ class Map extends React.PureComponent {
 
     this.markersLayer = leaflet.layerGroup().addTo(this.map);
 
-    offers.forEach((offer) => {
-      const icon =
-        offer.id === hoveredOfferID ? this.activePin : this.inactivePin;
-      leaflet.marker(offer.coordinates, {icon}).addTo(this.markersLayer);
-    });
+    this._renderPins();
   }
 
   _renderPins() {

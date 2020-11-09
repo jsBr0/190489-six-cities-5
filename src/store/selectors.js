@@ -14,7 +14,7 @@ const getOffersCitiesList = (state) => {
     cities[offer.city.name] = offer.city;
   });
 
-  return cities;
+  return Object.values(cities);
 };
 
 const getActiveSortType = (state) => state.activeSortType;

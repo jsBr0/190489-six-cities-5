@@ -107,7 +107,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  cities: PropTypes.object.isRequired,
+  cities: PropTypes.array.isRequired,
   activeCity: PropTypes.object.isRequired,
   changeCity: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
