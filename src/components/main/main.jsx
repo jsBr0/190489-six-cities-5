@@ -8,6 +8,8 @@ import CitiesList from "../cities-list/cities-list";
 import Sorting from "../sorting/sorting";
 import Map from "../map/map";
 
+import withPlacesList from "../../hocs/with-places-list/with-places-list";
+
 import {ActionCreator} from "../../store/action";
 import {
   getActiveCity,
@@ -18,6 +20,8 @@ import {
 } from "../../store/selectors";
 
 import {OfferPropTypes} from "../../utils/prop-types";
+
+const PlacesListWrapped = withPlacesList(PlacesList);
 
 const Main = (props) => {
   const {
@@ -82,13 +86,14 @@ const Main = (props) => {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">
                 {offers.length}&nbsp;
-                {offers.length > 1 ? `places` : `place`} to stay in {activeCity.name}
+                {offers.length > 1 ? `places` : `place`} to stay in{` `}
+                {activeCity.name}
               </b>
               <Sorting
                 sortOffersBy={sortOffersBy}
                 activeSortType={activeSortType}
               />
-              <PlacesList
+              <PlacesListWrapped
                 offers={offers}
                 cardClassName={`cities__place-card`}
                 imageClassName={`cities__image-wrapper`}
@@ -97,7 +102,12 @@ const Main = (props) => {
               />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} className={`cities__map`} hoveredOfferID={hoveredOfferID} activeCity={activeCity}/>
+              <Map
+                offers={offers}
+                className={`cities__map`}
+                hoveredOfferID={hoveredOfferID}
+                activeCity={activeCity}
+              />
             </div>
           </div>
         </div>
@@ -114,7 +124,7 @@ Main.propTypes = {
   sortOffersBy: PropTypes.func.isRequired,
   activeSortType: PropTypes.string.isRequired,
   setHoveredOfferID: PropTypes.func.isRequired,
-  hoveredOfferID: PropTypes.number
+  hoveredOfferID: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
@@ -134,7 +144,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setHoveredOfferID(id) {
     dispatch(ActionCreator.setHoveredOfferID(id));
-  }
+  },
 });
 
 export {Main};

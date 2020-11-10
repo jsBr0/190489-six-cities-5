@@ -1,17 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 import ReviewsList from "../reviews-list/reviews-list";
 import ReviewsForm from "../reviews-form/reviews-form";
 import PlacesList from "../places-list/places-list";
 import Map from "../map/map";
 
+import withReviewsForm from "../../hocs/with-reviews-form/with-reviews-form";
+import withPlacesList from "../../hocs/with-places-list/with-places-list";
+
 import offers from "../../mocks/offers";
 import reviews from "../../mocks/reviews";
 
+import {ActionCreator} from "../../store/action";
+import {getActiveCity, getHoveredOfferID} from "../../store/selectors";
+
+const ReviewsFormWrapped = withReviewsForm(ReviewsForm);
+const PlacesListWrapped = withPlacesList(PlacesList);
+
 const OfferPage = (props) => {
-  const {match} = props;
+  const {match, hoveredOfferID, activeCity, setHoveredOfferID} = props;
 
   const id = match.params.id;
   const offer = offers[id];
@@ -161,22 +171,28 @@ const OfferPage = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <ReviewsList reviews={reviews} offer={offer} />
-                <ReviewsForm />
+                <ReviewsFormWrapped />
               </section>
             </div>
           </div>
-          <Map offers={offersNear} className={`property__map`} />
+          <Map
+            offers={offersNear}
+            className={`property__map`}
+            hoveredOfferID={hoveredOfferID}
+            activeCity={activeCity}
+          />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <PlacesList
+            <PlacesListWrapped
               offers={offersNear}
               cardClassName={`near-places__card`}
               imageClassName={`near-places__image-wrapper`}
               listClassName={`near-places__list`}
+              setHoveredOfferID={setHoveredOfferID}
             />
           </section>
         </div>
@@ -187,6 +203,21 @@ const OfferPage = (props) => {
 
 OfferPage.propTypes = {
   match: PropTypes.object.isRequired,
+  activeCity: PropTypes.object.isRequired,
+  setHoveredOfferID: PropTypes.func.isRequired,
+  hoveredOfferID: PropTypes.number,
 };
 
-export default OfferPage;
+const mapStateToProps = (state) => ({
+  activeCity: getActiveCity(state),
+  hoveredOfferID: getHoveredOfferID(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setHoveredOfferID(id) {
+    dispatch(ActionCreator.setHoveredOfferID(id));
+  },
+});
+
+export {OfferPage};
+export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
