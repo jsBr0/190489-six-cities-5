@@ -1,37 +1,33 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import PlaceCard from "../place-card/place-card";
 
 import {OfferPropTypes} from "../../utils/prop-types";
 
-export default class PlacesList extends PureComponent {
-  constructor(props) {
-    super(props);
+const PlacesList = (props) => {
+  const {
+    offers,
+    cardClassName,
+    imageClassName,
+    listClassName,
+    setHoveredOfferID,
+  } = props;
 
-    this.state = {
-      active: null,
-    };
-  }
-
-  render() {
-    const {offers, cardClassName, imageClassName, listClassName, setHoveredOfferID} = this.props;
-
-    return (
-      <div className={`${listClassName} places__list`}>
-        {offers.map((offer) => (
-          <PlaceCard
-            key={offer.id}
-            offer={offer}
-            setHoveredOfferID={setHoveredOfferID}
-            cardClassName={cardClassName}
-            imageClassName={imageClassName}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={`${listClassName} places__list`}>
+      {offers.map((offer) => (
+        <PlaceCard
+          key={offer.id}
+          offer={offer}
+          setHoveredOfferID={setHoveredOfferID}
+          cardClassName={cardClassName}
+          imageClassName={imageClassName}
+        />
+      ))}
+    </div>
+  );
+};
 
 PlacesList.propTypes = {
   offers: PropTypes.arrayOf(OfferPropTypes).isRequired,
@@ -40,3 +36,5 @@ PlacesList.propTypes = {
   listClassName: PropTypes.string.isRequired,
   setHoveredOfferID: PropTypes.func.isRequired,
 };
+
+export default PlacesList;
