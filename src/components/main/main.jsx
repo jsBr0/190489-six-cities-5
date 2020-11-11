@@ -7,6 +7,7 @@ import PlacesList from "../places-list/places-list";
 import CitiesList from "../cities-list/cities-list";
 import Sorting from "../sorting/sorting";
 import Map from "../map/map";
+import MainEmpty from "../main-empty/main-empty";
 
 import withPlacesList from "../../hocs/with-places-list/with-places-list";
 
@@ -34,6 +35,9 @@ const Main = (props) => {
     setHoveredOfferID,
     hoveredOfferID,
   } = props;
+
+  const isOffersAvailable = offers.length > 0;
+  const mainEmptyClass = !isOffersAvailable ? `page__main--index-empty` : ``;
 
   return (
     <div className="page page--gray page--main">
@@ -73,7 +77,7 @@ const Main = (props) => {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${mainEmptyClass}`}>
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
           cities={cities}
@@ -81,35 +85,39 @@ const Main = (props) => {
           changeCity={changeCity}
         />
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offers.length}&nbsp;
-                {offers.length > 1 ? `places` : `place`} to stay in{` `}
-                {activeCity.name}
-              </b>
-              <Sorting
-                sortOffersBy={sortOffersBy}
-                activeSortType={activeSortType}
-              />
-              <PlacesListWrapped
-                offers={offers}
-                cardClassName={`cities__place-card`}
-                imageClassName={`cities__image-wrapper`}
-                listClassName={`cities__places-list tabs__content`}
-                setHoveredOfferID={setHoveredOfferID}
-              />
-            </section>
-            <div className="cities__right-section">
-              <Map
-                offers={offers}
-                className={`cities__map`}
-                hoveredOfferID={hoveredOfferID}
-                activeCity={activeCity}
-              />
+          {isOffersAvailable ? (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">
+                  {offers.length}&nbsp;
+                  {offers.length > 1 ? `places` : `place`} to stay in{` `}
+                  {activeCity.name}
+                </b>
+                <Sorting
+                  sortOffersBy={sortOffersBy}
+                  activeSortType={activeSortType}
+                />
+                <PlacesListWrapped
+                  offers={offers}
+                  cardClassName={`cities__place-card`}
+                  imageClassName={`cities__image-wrapper`}
+                  listClassName={`cities__places-list tabs__content`}
+                  setHoveredOfferID={setHoveredOfferID}
+                />
+              </section>
+              <div className="cities__right-section">
+                <Map
+                  offers={offers}
+                  className={`cities__map`}
+                  hoveredOfferID={hoveredOfferID}
+                  activeCity={activeCity}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <MainEmpty />
+          )}
         </div>
       </main>
     </div>

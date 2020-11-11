@@ -3,7 +3,7 @@ import {ActionType} from "./action";
 import offers from "../mocks/offers";
 import {SortType} from "../const";
 
-const DEFAULT_CITY = offers[0].city;
+const DEFAULT_CITY = offers.length > 0 ? offers[0].city : {};
 const DEFAULT_SORT_TYPE = SortType.POPULAR;
 
 const initialState = {
